@@ -1,10 +1,10 @@
 # Simple SYN Flooder and Spoofer
 This was created for educational purposes to demonstrate how SYN attacks work. It can also be used to test the effectiveness of firewalls claiming to block SYN flooding.
 
-# Install
+### Install
 pip install -r requirements.txt
 
-# Usage
+### Usage
 ```
 Usage:
   syn_flooder.py <dst_ip> <dst_port> [--sleep=<sec>] [-v] [-vv]
