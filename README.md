@@ -1,5 +1,5 @@
 # Simple SYN Flooder and Spoofer
-This was created for educational purposes to demonstrate how SYN attacks work. It can also be used to test the effectiveness of firewalls claiming to block SYN flooding.
+This was created for educational purposes to demonstrate how [SYN attacks] work. It can also be used to test the effectiveness of firewalls claiming to block SYN flooding.
 
 ### Install
 pip install -r requirements.txt
@@ -16,3 +16,5 @@ Usage:
     -v, --verbose         Show addresses being spoofed.
     -vv, --very-verbose   Display everything.
 ```
+
+[SYN attacks]: <https://en.wikipedia.org/wiki/SYN_flood>
