@@ -1,2 +1,6 @@
+# ignore my-notes file
+my-notes*
+
+
 .DS_Store
 venv/

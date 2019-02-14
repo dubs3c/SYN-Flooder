@@ -16,19 +16,21 @@ The spoof addresses are hardcoded and will use following format `10.10.n` where 
 ## Install
 Tested and developed with Python3.6.
 
-`pip install -r requirements.txt`
+`sudo apt install python3-pip`
+
+`pip3 install -r requirements.txt`
 
 ## Usage
 You may need to run the program as root.
 
 ```
 Usage:
-  syn_flooder.py <dst_ip> <dst_port> [--sleep=<sec>] [--verbose] [--very-verbose]
+  syn_flooder.py <dst_ip> <dst_port> <src_net> [--sleep=<sec>] [--verbose] [--very-verbose]
 
 Options:
   -h, --help            Show this screen.
   --version             Show version.
-  --sleep=<seconds>     How many seconds to sleep betseen scans [default: 0].
+  --sleep=<seconds>     How many seconds to sleep between scans [default: 0].
   --verbose             Show addresses being spoofed. [default: False]
   --very-verbose        Display everything. [default: False]
 ```

@@ -9,7 +9,7 @@ The user is the only one responsible for any damages. By using this
 software you agree with the terms.
 
 Usage:
-  syn_flooder.py <dst_ip> <dst_port> [--sleep=<sec>] [--verbose] [--very-verbose]
+  syn_flooder.py <dst_ip> <dst_port> <src_net> [--sleep=<sec>] [--verbose] [--very-verbose]
 
 Options:
   -h, --help            Show this screen.
@@ -28,7 +28,7 @@ from scapy.all import *
 
 
 def main(arguments):
-    src_net = "192.168.250."
+    src_net = arguments["<src_net>"]
     dst_ip = arguments["<dst_ip>"]
     dst_port = int(arguments["<dst_port>"])
     sleep = int(arguments["--sleep"])
