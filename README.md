@@ -22,6 +22,7 @@ Tested and developed with Python3.6.
 
 ## Usage
 You may need to run the program as root.
+<src_net> assumes /24 network.
 
 ```
 Usage:
