@@ -9,7 +9,7 @@ The user is the only one responsible for any damages. By using this
 software you agree with the terms.
 
 Usage:
-  multi_syn.py <dst_ip> <dst_port> <src_net> [--workers=<amount>] [--sleep=<seconds>]
+  multi_syn.py <dst_ip> <dst_port> [--workers=<amount>] [--sleep=<seconds>]
 
 Options:
   -h, --help            Show this screen.
