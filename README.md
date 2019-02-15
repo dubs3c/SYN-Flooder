@@ -16,6 +16,8 @@ The spoof addresses are hardcoded and will use following format `10.10.n` where 
 ## Install
 Tested and developed with Python3.6.
 
+You man need to change line ending characters for DOS.
+
 `sudo apt install python3-pip`
 
 `pip3 install -r requirements.txt`
